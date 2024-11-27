@@ -1,20 +1,24 @@
-import { NextResponse,NextRequest } from "next/server"
+import { NextResponse } from "next/server";
 
-let users=[{}]
-
-export async function GET(req, res){
-    const cookies = req.cookies
-    console.log(cookies._headers)
-    // const searchParams=req.nextUrl.searchParams;
-    // console.log(searchParams)
-
-    return NextResponse.json({msg:'success server response'})
-} 
-
-export async function POST(req) {
-    const newUser =  await req.json();
-    
-    console.log(newUser)
-   
-    return NextResponse.json({ message: "User added successfully",newUser});
-  } 
+// src/pages/api/user.js
+export  async function GET(req) {
+    // Simulating fetching data (for example, from a database)
+    try {
+      const URLSearchParams=req.nextUrl.searchParams;
+      console.log(URLSearchParams.get("name"))
+      const userData = {
+        id: 1,
+        name: URLSearchParams.get('name'),
+        email: 'john.doe@example.com',
+      };
+  
+     return( NextResponse.json(userData)
+     
+    )
+      
+    } catch (error) {
+      NextResponse.json({ message: 'Method Not Allowed' });
+      
+    }
+  
+}
